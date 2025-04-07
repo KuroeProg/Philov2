@@ -32,8 +32,7 @@ int	monitoring(t_data *data, t_philo *philo)
 			if (data->simulation == 1)
 				break ;
 	        pthread_mutex_lock(&philo[i].meal_mutex);
-	        if ((actual_time() - ((philo[i].last_meal.tv_sec * 1000)
-				+ (philo[i].last_meal.tv_usec / 1000))) > data->time_to_die)
+	        if ((actual_time() - philo[i].last_meal) > data->time_to_die)
 	        {
 	            printstatut(&philo[i], "died");
 	            pthread_mutex_unlock(&philo[i].meal_mutex);
@@ -53,7 +52,7 @@ int	monitoring(t_data *data, t_philo *philo)
 	        return (1);
 	    }
 	    i = 0;
-	    ft_usleep(100);
+	    ft_usleep(1);
 	}
 	return (0);
 }

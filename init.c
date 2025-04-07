@@ -49,7 +49,7 @@ int	init_philo(t_data *data, t_philo *philo)
 	gettimeofday(&now, NULL);
 	// philo->id = 0;
 	philo->start_time = data->start_time;
-	philo->last_meal = now;
+	philo->last_meal = actual_time();
 	philo->left_fork = NULL;
 	philo->right_fork = NULL;
 	philo->data = data;

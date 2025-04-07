@@ -14,7 +14,9 @@ int	take_forks(t_philo *philo)
 int	eat(t_philo *philo)
 {
     pthread_mutex_lock(&philo->meal_mutex);
-    philo->last_meal = philo->data->start_time;
+    philo->last_meal = actual_time();
+	pthread_mutex_unlock(&philo->meal_mutex);
+    pthread_mutex_lock(&philo->meal_mutex);
     philo->meals_eaten++;
     printstatut(philo, "is eating");
     pthread_mutex_unlock(&philo->meal_mutex);

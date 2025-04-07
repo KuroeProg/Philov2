@@ -21,7 +21,7 @@ typedef struct s_philo
 {
 	int	id;
 	struct timeval start_time;
-	struct timeval last_meal;
+	long int		 last_meal;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
 	t_data *data;
