@@ -14,8 +14,8 @@ int	init_value(char **av, t_data *data)
 		data->num_to_eat = ft_atol(av[5]);
 	else
 		data->num_to_eat = 0;
-	if (data->num_philo < 1 || data->time_to_die < 1 || data->time_to_eat < 1
-		|| data->time_to_sleep < 1)
+	if (data->num_philo < 1 || data->time_to_die < 60 || data->time_to_eat < 60
+		|| data->time_to_sleep < 60 || data->num_philo > 200)
 		return (0);
 	if (data->num_to_eat < 0)
 		return (0);

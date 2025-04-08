@@ -38,23 +38,23 @@ long	ft_atol(const char *str)
 long int		actual_time(void)
 {
 	long int			time;
-	struct timeval		current_time;
+	struct timeval		current;
 
 	time = 0;
-	if (gettimeofday(&current_time, NULL) == -1)
+	if (gettimeofday(&current, NULL) == -1)
 		exit(1);
-	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000); 
+	time = (current.tv_sec * 1000) + (current.tv_usec / 1000); 
 	return (time);
 }
 
-void	ft_usleep(long int time_in_ms)
+void	ft_usleep(long int time)
 {
-	long int	start_time;
+	long int	start;
 
-	start_time = 0;
-	start_time = actual_time();
-	while ((actual_time() - start_time) < time_in_ms)
-		usleep(time_in_ms / 10);
+	start = 0;
+	start = actual_time();
+	while ((actual_time() - start) < time)
+		usleep(time / 10);
 }
 
 void	cleanup(t_data *data, t_philo *philo)
