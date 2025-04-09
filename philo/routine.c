@@ -24,9 +24,13 @@ void	*routine(void *arg)
 		if (!take_forks(philo))
 			break ;
 		if (!eat(philo))
+		{
+			put_forks(philo);
 			break ;
+		}
 		put_forks(philo);
 		p_sleep(philo);
 	}
+	// put_forks(philo);
 	return (NULL);
 }

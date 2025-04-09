@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:26:06 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/09 15:28:33 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:36:38 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	check_philo_death(t_philo *philo, t_data *data)
         printstatut(philo, "died");
         pthread_mutex_unlock(&philo->meal_mutex);
         pthread_mutex_lock(&data->sim_mutex);
-        // ft_usleep(1000);
         data->simulation = 1;
         pthread_mutex_unlock(&data->sim_mutex);
         return (1);
@@ -52,7 +51,6 @@ static int	check_all_meals(t_philo *philo, t_data *data)
     if (data->num_to_eat > 0 && check_meals(philo, data))
     {
         pthread_mutex_lock(&data->sim_mutex);
-        // ft_usleep(1000);
         data->simulation = 1;
         pthread_mutex_unlock(&data->sim_mutex);
         return (1);
