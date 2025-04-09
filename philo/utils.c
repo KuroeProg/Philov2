@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <		   @student.42perpignan.    +#+  +:+       +#+        */
+/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/06 13:12:16 by cfiachet          #+#    #+#             */
-/*   Updated: 2024/10/06 13:32:43 by cfiachet         ###   ########.fr       */
+/*   Created: 2025/04/09 13:13:30 by cfiachet          #+#    #+#             */
+/*   Updated: 2025/04/09 15:27:39 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,13 @@ long	ft_atol(const char *str)
 	return (result * sign);
 }
 
-long int		actual_time(void)
+long int	actual_time(void)
 {
-	long int			time;
-	struct timeval		current;
+    struct timeval	current;
 
-	time = 0;
-	if (gettimeofday(&current, NULL) == -1)
-		exit(1);
-	time = (current.tv_sec * 1000) + (current.tv_usec / 1000); 
-	return (time);
+    if (gettimeofday(&current, NULL) == -1)
+        return (-1);
+    return ((current.tv_sec * 1000) + (current.tv_usec / 1000));
 }
 
 void	ft_usleep(long int time)

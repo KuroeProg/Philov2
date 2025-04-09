@@ -2,16 +2,12 @@
 
 void	think(t_philo *philo)
 {
-	// pthread_mutex_lock(&philo->data->sim_mutex);
 	printstatut(philo, "is thinking");
-	// pthread_mutex_unlock(&philo->data->sim_mutex);
 }
 
 void	p_sleep(t_philo *philo)
 {
-	// pthread_mutex_lock(&philo->data->sim_mutex);
 	printstatut(philo, "is sleeping");
-	// pthread_mutex_unlock(&philo->data->sim_mutex);
 	ft_usleep(philo->data->time_to_sleep);
 }
 

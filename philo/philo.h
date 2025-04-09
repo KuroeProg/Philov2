@@ -15,6 +15,7 @@ typedef struct s_data
 	long	time_to_sleep;
 	long	num_to_eat;
 	int		simulation; //1 == finished
+	struct s_philo *philos;
 }			t_data;
 
 typedef struct s_philo
@@ -45,21 +46,22 @@ void	printstatut(t_philo *philo, char *status);
 
 int		check_meals(t_philo *philo, t_data *data);
 int		monitoring(t_data *data, t_philo *philo);
+void	*check_death(void *arg);
 
 /*routine*/
 void	*routine(void *arg);
 void	think(t_philo *philo);
 
 /*utils*/
-long	ft_atol(const char *str);
-long int		actual_time(void);
-void	ft_usleep(long int time_in_ms);
-void	cleanup(t_data *data, t_philo *philo);
+long		ft_atol(const char *str);
+long int	actual_time(void);
+void		ft_usleep(long int time_in_ms);
+void		cleanup(t_data *data, t_philo *philo);
 
 /* forks*/
-int	take_forks(t_philo *philo);
-int	eat(t_philo *philo);
-void	put_forks(t_philo *philo);
+int			take_forks(t_philo *philo);
+int			eat(t_philo *philo);
+void		put_forks(t_philo *philo);
 
 /*parsing*/
 void		parsing(char **av);

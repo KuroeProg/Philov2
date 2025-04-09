@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/09 15:25:47 by cfiachet          #+#    #+#             */
+/*   Updated: 2025/04/09 15:25:48 by cfiachet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	init_value(char **av, t_data *data)
@@ -47,7 +59,6 @@ int	init_philo(t_data *data, t_philo *philo)
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	// philo->id = 0;
 	philo->start_time = data->start_time;
 	philo->last_meal = actual_time();
 	philo->left_fork = NULL;
