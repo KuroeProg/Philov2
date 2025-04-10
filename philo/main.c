@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:25:55 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/09 15:25:56 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:15:38 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ void	printstatut(t_philo *philo, char *status)
 	long int	timestamp;
 
 	pthread_mutex_lock(&philo->data->sim_mutex);
+	// pthread_mutex_lock(&philo->meal_mutex);
 	timestamp = actual_time() - ((philo->data->start_time.tv_sec * 1000)
 		+ (philo->data->start_time.tv_usec / 1000));
 	if (!philo->data->simulation)
 		printf("%ld %d %s\n", timestamp, philo->id, status);
+	// pthread_mutex_unlock(&philo->meal_mutex);
 	pthread_mutex_unlock(&philo->data->sim_mutex);
 }
 

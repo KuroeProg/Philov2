@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:25:47 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/09 20:47:31 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:00:33 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ int	init_value(char **av, t_data *data)
 
 	gettimeofday(&now, NULL);
 	data->num_philo = ft_atol(av[1]);
-	pthread_mutex_init(&data->sim_mutex, NULL);
+	if (pthread_mutex_init(&data->sim_mutex, NULL))
+		return (0);
 	data->time_to_die = ft_atol(av[2]);
 	data->time_to_eat = ft_atol(av[3]);
 	data->time_to_sleep = ft_atol(av[4]);
+	data->check = 0;
 	if (av[5] && *av[5])
 		data->num_to_eat = ft_atol(av[5]);
 	else
@@ -109,7 +111,7 @@ int	fork_to_philo(t_data *data, t_philo **philo)
 	{
 		if (pthread_create(&(*philo)[i].thread, NULL, routine, &(*philo)[i]))
 			return (0);
-		i++;	
+		i++;
 	}
 	return (1);
 }

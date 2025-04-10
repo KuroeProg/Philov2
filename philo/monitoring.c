@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:26:06 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/09 20:36:38 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:48:52 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,16 @@ static int	check_philo_death(t_philo *philo, t_data *data)
 
 static int	check_all_meals(t_philo *philo, t_data *data)
 {
+    // pthread_mutex_lock(&philo->meal_mutex);
     if (data->num_to_eat > 0 && check_meals(philo, data))
     {
         pthread_mutex_lock(&data->sim_mutex);
         data->simulation = 1;
         pthread_mutex_unlock(&data->sim_mutex);
+        // pthread_mutex_unlock(&philo->meal_mutex);
         return (1);
     }
+    // pthread_mutex_unlock(&philo->meal_mutex);
     return (0);
 }
 
@@ -80,13 +83,14 @@ void	*check_death(void *arg)
     return (NULL);
 }
 
+
 int	monitoring(t_data *data, t_philo *philo)
 {
-    pthread_t	death_thread;
+	pthread_t	death_thread;
 
-	(void)philo;
-    if (pthread_create(&death_thread, NULL, check_death, data) != 0)
-        return (1);
-    pthread_join(death_thread, NULL);
-    return (data->simulation);
+	if (pthread_create(&death_thread, NULL, check_death, data) != 0)
+		return (1);
+	pthread_join(death_thread, NULL);
+	cleanup_mutexes(data, philo);
+	return (data->simulation);
 }

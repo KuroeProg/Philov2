@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:13:30 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/09 15:27:39 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/10 15:18:53 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,42 @@ void	ft_usleep(long int time)
 		usleep(time / 10);
 }
 
-void	cleanup(t_data *data, t_philo *philo)
+void cleanup(t_data *data, t_philo *philo)
 {
-    int i;
+	int i;
 
-    if (data->fork)
-    {
-        i = 0;
-        while (i < data->num_philo)
-            pthread_mutex_destroy(&data->fork[i++]);
-        free(data->fork);
-    }
-    if (philo)
-    {
-        i = 0;
-        while (i < data->num_philo)
-            pthread_mutex_destroy(&philo[i++].meal_mutex);
-        free(philo);
-    }
-    pthread_mutex_destroy(&data->sim_mutex);
+	if (data->fork)
+	{
+		i = 0;
+		while (i < data->num_philo)
+		{
+			pthread_mutex_destroy(&data->fork[i]);
+			i++;
+		}
+		free(data->fork);
+	}
+	if (philo)
+	{
+		i = 0;
+		while (i < data->num_philo)
+		{
+			pthread_mutex_destroy(&philo[i].meal_mutex);
+			i++;
+		}
+		free(philo);
+	}
+	pthread_mutex_destroy(&data->sim_mutex);
+}
+
+void	cleanup_mutexes(t_data *data, t_philo *philo)
+{
+	int i;
+
+	i = 0;
+	while (i < data->num_philo)
+	{
+		pthread_mutex_destroy(&philo[i].meal_mutex);
+		i++;
+	}
+	pthread_mutex_destroy(&data->sim_mutex);
 }
