@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:26:06 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/10 15:48:52 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:18:41 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,57 +32,55 @@ int	check_meals(t_philo *philo, t_data *data)
 
 static int	check_philo_death(t_philo *philo, t_data *data)
 {
-    pthread_mutex_lock(&philo->meal_mutex);
-    if ((actual_time() - philo->last_meal) > data->time_to_die)
-    {
-        printstatut(philo, "died");
-        pthread_mutex_unlock(&philo->meal_mutex);
-        pthread_mutex_lock(&data->sim_mutex);
-        data->simulation = 1;
-        pthread_mutex_unlock(&data->sim_mutex);
-        return (1);
-    }
-    pthread_mutex_unlock(&philo->meal_mutex);
-    return (0);
+	pthread_mutex_lock(&philo->meal_mutex);
+	if ((actual_time() - philo->last_meal) > data->time_to_die)
+	{
+		printstatut(philo, "died");
+		pthread_mutex_unlock(&philo->meal_mutex);
+		pthread_mutex_lock(&data->sim_mutex);
+		data->simulation = 1;
+		pthread_mutex_unlock(&data->sim_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->meal_mutex);
+	return (0);
 }
 
 static int	check_all_meals(t_philo *philo, t_data *data)
 {
-    // pthread_mutex_lock(&philo->meal_mutex);
-    if (data->num_to_eat > 0 && check_meals(philo, data))
-    {
-        pthread_mutex_lock(&data->sim_mutex);
-        data->simulation = 1;
-        pthread_mutex_unlock(&data->sim_mutex);
-        // pthread_mutex_unlock(&philo->meal_mutex);
-        return (1);
-    }
-    // pthread_mutex_unlock(&philo->meal_mutex);
-    return (0);
+	if (data->num_to_eat > 0 && check_meals(philo, data))
+	{
+		pthread_mutex_lock(&data->sim_mutex);
+		data->simulation = 1;
+		pthread_mutex_unlock(&data->sim_mutex);
+		return (1);
+	}
+	return (0);
 }
 
 void	*check_death(void *arg)
 {
-    t_data	*data = (t_data *)arg;
-    t_philo	*philo = data->philos;
-    int		i;
+	t_data	*data;
+	t_philo	*philo;
+	int		i;
 
-    while (data->simulation == 0)
-    {
-        i = 0;
-        while (i < data->num_philo)
-        {
-            if (check_philo_death(&philo[i], data))
-                return (NULL);
-            i++;
-        }
-        if (check_all_meals(philo, data))
-            return (NULL);
-        ft_usleep(1);
-    }
-    return (NULL);
+	data = (t_data *)arg;
+	philo = data->philos;
+	while (data->simulation == 0)
+	{
+		i = 0;
+		while (i < data->num_philo)
+		{
+			if (check_philo_death(&philo[i], data))
+				return (NULL);
+			i++;
+		}
+		if (check_all_meals(philo, data))
+			return (NULL);
+		ft_usleep(1);
+	}
+	return (NULL);
 }
-
 
 int	monitoring(t_data *data, t_philo *philo)
 {

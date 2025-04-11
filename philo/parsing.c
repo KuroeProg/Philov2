@@ -6,18 +6,19 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:26:19 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/09 15:26:23 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:22:52 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	return_error()
+static void	return_error(void)
 {
 	printf("error");
 	exit(1);
 }
-static int		check_num(char *str)
+
+static int	check_num(char *str)
 {
 	int	i;
 
@@ -31,9 +32,9 @@ static int		check_num(char *str)
 	return (0);
 }
 
-void		parsing(char **av)
+void	parsing(char **av)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (av[i])
