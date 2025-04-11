@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:26:06 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/11 12:18:41 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:34:24 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	*check_death(void *arg)
 		}
 		if (check_all_meals(philo, data))
 			return (NULL);
-		ft_usleep(1);
+		ft_usleep(1, philo);
 	}
 	return (NULL);
 }

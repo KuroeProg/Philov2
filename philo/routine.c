@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:11:49 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/11 12:19:31 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:43:44 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	think(t_philo *philo)
 void	p_sleep(t_philo *philo)
 {
 	printstatut(philo, "is sleeping");
-	ft_usleep(philo->data->time_to_sleep);
+	ft_usleep(philo->data->time_to_sleep, philo);
 }
 
 static int	is(t_philo *philo)
@@ -41,7 +41,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->data->time_to_eat / 2);
+		ft_usleep(philo->data->time_to_eat / 2, philo);
 	while (1)
 	{
 		if (is(philo))
@@ -55,6 +55,8 @@ void	*routine(void *arg)
 			break ;
 		}
 		put_forks(philo);
+		if (philo->meals_eaten && philo->meals_eaten == philo->data->num_to_eat)
+			return (NULL);
 		p_sleep(philo);
 	}
 	return (NULL);

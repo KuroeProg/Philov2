@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 13:13:30 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/11 12:15:50 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:38:06 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,23 @@ long int	actual_time(void)
 	return ((current.tv_sec * 1000) + (current.tv_usec / 1000));
 }
 
-void	ft_usleep(long int time)
+void	ft_usleep(long int time, t_philo *philo)
 {
 	long int	start;
 
 	start = 0;
 	start = actual_time();
 	while ((actual_time() - start) < time)
-		usleep(time / 10);
+	{
+		pthread_mutex_lock(&philo->data->sim_mutex);
+		if (philo->data->simulation)
+		{
+			pthread_mutex_unlock(&philo->data->sim_mutex);
+			return ;
+		}
+		pthread_mutex_unlock(&philo->data->sim_mutex);
+		usleep(1);
+	}
 }
 
 void	cleanup(t_data *data, t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:04:58 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/11 12:22:12 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:01:11 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	take_forks(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		printstatut(philo, "has taken a fork");
-		ft_usleep(philo->data->time_to_die);
+		ft_usleep(philo->data->time_to_die, philo);
 		printstatut(philo, "died");
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_lock(&philo->data->sim_mutex);
@@ -72,7 +72,7 @@ int	eat(t_philo *philo)
 	philo->meals_eaten++;
 	printstatut(philo, "is eating");
 	pthread_mutex_unlock(&philo->meal_mutex);
-	ft_usleep(philo->data->time_to_eat);
+	ft_usleep(philo->data->time_to_eat, philo);
 	return (1);
 }
 

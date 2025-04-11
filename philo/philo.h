@@ -6,7 +6,7 @@
 /*   By: cfiachet <cfiachet@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 12:10:30 by cfiachet          #+#    #+#             */
-/*   Updated: 2025/04/11 12:21:20 by cfiachet         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:00:44 by cfiachet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		think(t_philo *philo);
 /*utils*/
 long		ft_atol(const char *str);
 long int	actual_time(void);
-void		ft_usleep(long int time_in_ms);
+void		ft_usleep(long int time, t_philo *philo);
 void		cleanup(t_data *data, t_philo *philo);
 void		cleanup_mutexes(t_data *data, t_philo *philo);
 
